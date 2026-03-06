@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Your Import Business — Product Ideas & Brand Personas</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --bg: #0d0d0f; --surface: #16161a; --surface2: #1e1e24; --border: #2a2a32;
+    --text: #f0eff5; --muted: #7a7a90; --accent1: #ff6b35; --accent2: #00d4a8;
+    --accent3: #a78bfa; --accent4: #f59e0b; --accent5: #ec4899;
+  }
+  body { background: var(--bg); color: var(--text); font-family: 'DM Sans', sans-serif; font-weight: 300; line-height: 1.6; min-height: 100vh; overflow-x: hidden; }
+  header { padding: 4rem 2rem 2rem; text-align: center; position: relative; }
+  header::before { content: ''; position: absolute; top: 0; left: 50%; transform: translateX(-50%); width: 600px; height: 300px; background: radial-gradient(ellipse at center, rgba(255,107,53,0.12) 0%, transparent 70%); pointer-events: none; }
+  .eyebrow { font-family: 'Syne', sans-serif; font-size: 0.7rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent1); margin-bottom: 1rem; }
+  h1 { font-family: 'Syne', sans-serif; font-size: clamp(2rem, 5vw, 3.2rem); font-weight: 800; line-height: 1.1; margin-bottom: 1rem; }
+  h1 span { color: var(--accent1); }
+  .subtitle { color: var(--muted); max-width: 540px; margin: 0 auto 1.5rem; font-size: 1.05rem; }
+  .notice { display: inline-flex; align-items: center; gap: 0.5rem; background: rgba(245,158,11,0.1); border: 1px solid rgba(245,158,11,0.3); border-radius: 8px; padding: 0.6rem 1rem; font-size: 0.82rem; color: var(--accent4); margin-bottom: 3rem; }
+  .tabs-wrapper { max-width: 960px; margin: 0 auto; padding: 0 1.5rem; }
+  .tab-nav { display: flex; gap: 0.5rem; margin-bottom: 2rem; flex-wrap: wrap; justify-content: center; }
+  .tab-btn { background: var(--surface); border: 1px solid var(--border); color: var(--muted); padding: 0.55rem 1.2rem; border-radius: 40px; font-family: 'Syne', sans-serif; font-size: 0.8rem; font-weight: 600; cursor: pointer; transition: all 0.25s ease; letter-spacing: 0.03em; }
+  .tab-btn:hover { color: var(--text); border-color: #444; }
+  .tab-btn.active { color: var(--bg); background: var(--accent1); border-color: var(--accent1); }
+  .cards-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.5rem; }
+  .card { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 1.6rem; cursor: pointer; transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease; position: relative; overflow: hidden; }
+  .card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: var(--card-accent, var(--accent1)); border-radius: 16px 16px 0 0; }
+  .card:hover { transform: translateY(-4px); box-shadow: 0 12px 32px rgba(0,0,0,0.4); border-color: var(--card-accent, var(--accent1)); }
+  .card-icon { font-size: 2rem; margin-bottom: 0.8rem; }
+  .card-tag { display: inline-block; font-size: 0.68rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; padding: 0.2rem 0.6rem; border-radius: 4px; background: var(--card-accent-bg, rgba(255,107,53,0.12)); color: var(--card-accent, var(--accent1)); margin-bottom: 0.7rem; }
+  .card h3 { font-family: 'Syne', sans-serif; font-size: 1.05rem; font-weight: 700; margin-bottom: 0.5rem; }
+  .card p { font-size: 0.88rem; color: var(--muted); line-height: 1.55; }
+  .card-meta { margin-top: 1rem; display: flex; gap: 1rem; flex-wrap: wrap; }
+  .meta-pill { font-size: 0.75rem; color: var(--muted); display: flex; align-items: center; gap: 0.3rem; }
+  .meta-pill strong { color: var(--text); font-weight: 500; }
+  .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.75); backdrop-filter: blur(6px); z-index: 100; align-items: center; justify-content: center; padding: 1rem; }
+  .modal-overlay.open { display: flex; }
+  .modal { background: var(--surface); border: 1px solid var(--border); border-radius: 20px; max-width: 680px; width: 100%; max-height: 90vh; overflow-y: auto; padding: 2.5rem; position: relative; animation: slideUp 0.3s ease; }
+  @keyframes slideUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
+  .modal-close { position: absolute; top: 1.2rem; right: 1.2rem; background: var(--surface2); border: 1px solid var(--border); color: var(--muted); width: 32px; height: 32px; border-radius: 50%; cursor: pointer; font-size: 1rem; display: flex; align-items: center; justify-content: center; transition: all 0.2s; }
+  .modal-close:hover { color: var(--text); background: var(--border); }
+  .modal-accent-bar { height: 4px; border-radius: 4px; margin-bottom: 1.5rem; }
+  .modal h2 { font-family: 'Syne', sans-serif; font-size: 1.5rem; font-weight: 800; margin-bottom: 0.3rem; }
+  .modal-sub { color: var(--muted); font-size: 0.9rem; margin-bottom: 1.5rem; }
+  .section-label { font-family: 'Syne', sans-serif; font-size: 0.65rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); margin-bottom: 0.6rem; margin-top: 1.4rem; }
+  .persona-block { background: var(--surface2); border-radius: 12px; padding: 1.2rem; margin-bottom: 1rem; }
+  .persona-name { font-family: 'Syne', sans-serif; font-size: 1rem; font-weight: 700; margin-bottom: 0.2rem; }
+  .persona-role { font-size: 0.78rem; color: var(--muted); margin-bottom: 0.7rem; }
+  .persona-row { display: grid; grid-template-columns: 1fr 1fr; gap: 0.8rem; font-size: 0.82rem; }
+  .persona-col label { display: block; font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--muted); margin-bottom: 0.2rem; }
+  .persona-col span { color: var(--text); line-height: 1.5; }
+  .tag-list { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 0.3rem; }
+  .tag { background: rgba(255,255,255,0.06); border: 1px solid var(--border); border-radius: 4px; padding: 0.15rem 0.5rem; font-size: 0.72rem; color: var(--muted); }
+  .info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.8rem; }
+  .info-item { background: var(--surface2); border-radius: 10px; padding: 0.9rem; }
+  .info-item label { display: block; font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--muted); margin-bottom: 0.3rem; }
+  .info-item span { font-size: 0.88rem; color: var(--text); font-weight: 500; }
+  .warning-box { background: rgba(245,158,11,0.08); border: 1px solid rgba(245,158,11,0.25); border-radius: 10px; padding: 0.9rem 1rem; font-size: 0.82rem; color: #d4a84b; margin-top: 1rem; line-height: 1.55; }
+  .footer-tip { text-align: center; padding: 3rem 1.5rem; color: var(--muted); font-size: 0.85rem; }
+  @media (max-width: 500px) { .persona-row, .info-grid { grid-template-columns: 1fr; } .modal { padding: 1.5rem; } }
+</style>
+</head>
+<body>
+
+<header>
+  <p class="eyebrow">China → USA Import Business</p>
+  <h1>Product Ideas &<br><span>Brand Personas</span></h1>
+  <p class="subtitle">5 vetted niches with real margin data, plus ready-made brand personas for each — click any card to explore.</p>
+  <div class="notice">⚠️ Note: US tariffs on Chinese goods changed in 2025. Always calculate your full landed cost before ordering.</div>
+</header>
+
+<div class="tabs-wrapper">
+  <div class="tab-nav">
+    <button class="tab-btn active" data-filter="all">All Niches</button>
+    <button class="tab-btn" data-filter="low-risk">Low Risk</button>
+    <button class="tab-btn" data-filter="high-margin">High Margin</button>
+    <button class="tab-btn" data-filter="niche">Less Competition</button>
+  </div>
+  <div class="cards-grid" id="cardsGrid"></div>
+</div>
+
+<div class="footer-tip">Click any card to see full brand personas, messaging ideas, and sourcing tips.</div>
+
+<div class="modal-overlay" id="modalOverlay">
+  <div class="modal" id="modalContent">
+    <button class="modal-close" id="modalCloseBtn">✕</button>
+    <div id="modalBody"></div>
+  </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+
+  const products = [
+    {
+      id: 1, icon: "🛏️", name: "Silk Pillowcases", tag: "Beauty & Home",
+      tagFilter: ["high-margin", "low-risk"], accent: "#00d4a8", accentBg: "rgba(0,212,168,0.1)",
+      summary: "Flat-pack, lightweight, huge margins. Dermatologists and beauty bloggers drive steady demand.",
+      cost: "$1–2/unit", retail: "$10–15", margin: "400–600%", competition: "Medium", risk: "Low", tariff: "~7.5–10%",
+      personas: [
+        { name: "Priya, 31", role: "Wellness-conscious professional, New York", pain: "Wakes up with frizzy hair and skin creases. Wants luxury-feel without luxury price.", buys: "Instagram ads, influencer recs, Amazon search", message: '"Wake up better. Dermatologist-approved silk at an honest price."', tags: ["self-care","anti-aging","hair health","eco-friendly"] },
+        { name: "Mom Lisa, 44", role: "Suburban parent, Texas", pain: "Buys gifts for her daughters' apartments. Wants to look like a thoughtful, practical gift-giver.", buys: "Amazon, Pinterest, gift guides", message: '"The gift they will actually keep. Luxurious, practical, beautiful."', tags: ["gifting","home upgrade","mom purchase","practical luxury"] }
+      ],
+      brandTone: "Clean, aspirational, science-backed. Think quiet luxury.", sourcingTip: "Search Alibaba for Oeko-Tex certified silk. Order 10 samples first. Verify fiber content labeling.", channel: "Amazon FBA + Instagram/TikTok influencer seeding"
+    },
+    {
+      id: 2, icon: "🐾", name: "Premium Pet Accessories", tag: "Pet Care",
+      tagFilter: ["niche", "high-margin"], accent: "#a78bfa", accentBg: "rgba(167,139,250,0.1)",
+      summary: "Pet owners spend emotionally. Personalized collars, slow feeders, and travel gear have loyal repeat buyers.",
+      cost: "$3–8/unit", retail: "$18–40", margin: "200–400%", competition: "Medium-Low", risk: "Low", tariff: "~5–15%",
+      personas: [
+        { name: "Jake, 27", role: "Dog dad, first-time pet owner, Austin", pain: "Anxious about doing right by his dog. Wants products that look good and feel premium.", buys: "TikTok, Reddit r/dogs, Amazon", message: '"For pet parents who go all in. Built for dogs who deserve better."', tags: ["first pet","quality conscious","aesthetic","anxious buyer"] },
+        { name: "Sandra, 52", role: "Multi-pet household, Midwest", pain: "Goes through cheap accessories fast. Wants durable, value-for-money options.", buys: "Facebook ads, Chewy, word of mouth", message: '"Durable, safe, and affordable. Your pets. Your budget. Zero compromise."', tags: ["durability","value","multi-pet","repeat buyer"] }
+      ],
+      brandTone: "Warm, playful, community-driven. User-generated content gold.", sourcingTip: "Look for customization options — your logo on collars/bandanas builds brand loyalty fast.", channel: "Etsy (personalized items) + Amazon + Facebook/Instagram ads"
+    },
+    {
+      id: 3, icon: "💪", name: "Compact Home Fitness Gear", tag: "Health & Fitness",
+      tagFilter: ["niche", "high-margin"], accent: "#ff6b35", accentBg: "rgba(255,107,53,0.1)",
+      summary: "Resistance bands, yoga blocks, massage guns. Apartment-friendly fitness with strong post-pandemic demand.",
+      cost: "$4–12/unit", retail: "$20–55", margin: "150–300%", competition: "Medium", risk: "Low-Medium", tariff: "~10–20%",
+      personas: [
+        { name: "Carlos, 34", role: "Remote worker, no gym membership, Chicago", pain: "No space or time for a gym. Needs effective gear that stores under the bed.", buys: "YouTube reviews, Amazon, Reddit", message: '"Gym results. Zero commute. Fits in a drawer."', tags: ["WFH lifestyle","space-saving","budget gym","results-driven"] },
+        { name: "Mia, 28", role: "Yoga & mindfulness enthusiast, LA", pain: "Wants aesthetic, Instagram-worthy gear that aligns with her wellness brand.", buys: "Instagram, Shopify stores, TikTok", message: '"Move with intention. Gear that matches your practice."', tags: ["aesthetic","wellness","mindful movement","content creator"] }
+      ],
+      brandTone: "Energetic but grounded. Inclusive, not intimidating. Real people, real results.", sourcingTip: "Target specific SKUs — e.g. fabric resistance band set, not generic bands. Differentiation is key.", channel: "Shopify store + TikTok/Instagram Reels + Amazon"
+    },
+    {
+      id: 4, icon: "🚗", name: "LED Car Accessories", tag: "Automotive",
+      tagFilter: ["niche", "low-risk"], accent: "#f59e0b", accentBg: "rgba(245,158,11,0.1)",
+      summary: "LED interior strips, ambient lighting kits, dash accessories. Car customization is a passionate, spending community.",
+      cost: "$5–15/unit", retail: "$25–60", margin: "150–300%", competition: "Low-Medium", risk: "Low", tariff: "~5–15%",
+      personas: [
+        { name: "Marcus, 22", role: "Car enthusiast, first car owner, Southeast US", pain: "Wants his car to look custom without a big budget. Very influenced by car content on TikTok.", buys: "TikTok, YouTube, Amazon, car forums", message: '"Turn your ride into a vibe. Easy install. Instant upgrade."', tags: ["car enthusiast","Gen Z","DIY install","budget custom"] },
+        { name: "David, 40", role: "Rideshare driver, practical buyer", pain: "Wants ambient lighting to improve passenger experience and get better ratings.", buys: "Amazon, Google search", message: '"Better ratings start with better ambiance. Professional look, easy setup."', tags: ["rideshare","practical","5-star ratings","repeat buyer"] }
+      ],
+      brandTone: "Cool, edgy, community-driven. Heavy on UGC and transformation before/afters.", sourcingTip: "Request CE/RoHS certifications. Avoid cheap wiring — returns kill margins. Test 20 units first.", channel: "TikTok Shop + Amazon + YouTube review seeding"
+    },
+    {
+      id: 5, icon: "🏠", name: "Space-Saving Home Organizers", tag: "Home & Kitchen",
+      tagFilter: ["low-risk", "high-margin"], accent: "#ec4899", accentBg: "rgba(236,72,153,0.1)",
+      summary: "Under-sink organizers, closet systems, drawer dividers. High search volume, repeat purchases, private-label friendly.",
+      cost: "$3–9/unit", retail: "$18–45", margin: "200–400%", competition: "Medium", risk: "Low", tariff: "~10–25%",
+      personas: [
+        { name: "Rachel, 35", role: "First-time homeowner, organization obsessed", pain: "Just moved in, overwhelmed by clutter. Follows organization accounts religiously.", buys: "Pinterest, TikTok, Amazon", message: '"A place for everything. Finally feel at home."', tags: ["new homeowner","The Home Edit fan","aesthetic organizer","Pinterest buyer"] },
+        { name: "Tom, 47", role: "Practical dad, functional buyer", pain: "Garage and kitchen chaos. Needs durable solutions that actually work.", buys: "Amazon, Home Depot website, Google search", message: '"Stop losing things. Heavy-duty organizers built for real life."', tags: ["functional","family home","durability","practical buyer"] }
+      ],
+      brandTone: "Clean, aspirational, transformation-focused. Before/after content is your best marketing.", sourcingTip: "Private labeling is very easy here. Spend $100–200 on custom packaging — it doubles perceived value.", channel: "Amazon FBA + TikTok/Pinterest + Shopify"
+    }
+  ];
+
+  function renderCards(filter) {
+    const grid = document.getElementById('cardsGrid');
+    grid.innerHTML = '';
+    products
+      .filter(function(p) { return filter === 'all' || p.tagFilter.indexOf(filter) !== -1; })
+      .forEach(function(p) {
+        const card = document.createElement('div');
+        card.className = 'card';
+        card.style.setProperty('--card-accent', p.accent);
+        card.style.setProperty('--card-accent-bg', p.accentBg);
+        card.innerHTML =
+          '<div class="card-icon">' + p.icon + '</div>' +
+          '<div class="card-tag">' + p.tag + '</div>' +
+          '<h3>' + p.name + '</h3>' +
+          '<p>' + p.summary + '</p>' +
+          '<div class="card-meta">' +
+            '<div class="meta-pill">💰 <strong>' + p.margin + '</strong> margin</div>' +
+            '<div class="meta-pill">🏷️ <strong>' + p.cost + '</strong> wholesale</div>' +
+            '<div class="meta-pill">⚡ Competition: <strong>' + p.competition + '</strong></div>' +
+          '</div>';
+        card.addEventListener('click', function() { openModal(p); });
+        grid.appendChild(card);
+      });
+  }
+
+  function openModal(p) {
+    const body = document.getElementById('modalBody');
+    let personasHTML = '';
+    p.personas.forEach(function(persona) {
+      personasHTML +=
+        '<div class="persona-block">' +
+          '<div class="persona-name">' + persona.name + '</div>' +
+          '<div class="persona-role">' + persona.role + '</div>' +
+          '<div class="persona-row">' +
+            '<div class="persona-col"><label>Pain Point</label><span>' + persona.pain + '</span></div>' +
+            '<div class="persona-col"><label>Where They Buy</label><span>' + persona.buys + '</span></div>' +
+          '</div>' +
+          '<div style="margin-top:0.8rem"><div class="persona-col"><label>Your Winning Message</label><span style="color:' + p.accent + ';font-style:italic">' + persona.message + '</span></div></div>' +
+          '<div class="tag-list" style="margin-top:0.7rem">' + persona.tags.map(function(t) { return '<span class="tag">' + t + '</span>'; }).join('') + '</div>' +
+        '</div>';
+    });
+
+    body.innerHTML =
+      '<div class="modal-accent-bar" style="background:' + p.accent + '"></div>' +
+      '<p style="font-size:0.72rem;text-transform:uppercase;letter-spacing:0.15em;color:' + p.accent + ';font-weight:700;margin-bottom:0.4rem">' + p.tag + '</p>' +
+      '<h2>' + p.icon + ' ' + p.name + '</h2>' +
+      '<p class="modal-sub">' + p.summary + '</p>' +
+      '<p class="section-label">📊 Business Snapshot</p>' +
+      '<div class="info-grid">' +
+        '<div class="info-item"><label>Wholesale Cost</label><span>' + p.cost + '</span></div>' +
+        '<div class="info-item"><label>Retail Price</label><span>' + p.retail + '</span></div>' +
+        '<div class="info-item"><label>Margin Potential</label><span>' + p.margin + '</span></div>' +
+        '<div class="info-item"><label>US Tariff (estimate)</label><span>' + p.tariff + '</span></div>' +
+        '<div class="info-item"><label>Competition Level</label><span>' + p.competition + '</span></div>' +
+        '<div class="info-item"><label>Risk Level</label><span>' + p.risk + '</span></div>' +
+      '</div>' +
+      '<p class="section-label">👤 Brand Personas</p>' +
+      personasHTML +
+      '<p class="section-label">🎙️ Brand Tone</p>' +
+      '<div class="persona-block"><span style="font-size:0.88rem">' + p.brandTone + '</span></div>' +
+      '<p class="section-label">📦 Sourcing Tip</p>' +
+      '<div class="persona-block"><span style="font-size:0.88rem">' + p.sourcingTip + '</span></div>' +
+      '<p class="section-label">📣 Best Sales Channels</p>' +
+      '<div class="persona-block"><span style="font-size:0.88rem">' + p.channel + '</span></div>' +
+      '<div class="warning-box">⚠️ <strong>Tariff reminder:</strong> The US de minimis exemption was suspended in 2025, meaning even small shipments now face duties. Always calculate your full landed cost (product + freight + tariff + FBA fees) before ordering. Target at least 40–50% net margin after all costs.</div>';
+
+    document.getElementById('modalOverlay').classList.add('open');
+  }
+
+  function closeModal() {
+    document.getElementById('modalOverlay').classList.remove('open');
+  }
+
+  // Tab buttons
+  document.querySelectorAll('.tab-btn').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      document.querySelectorAll('.tab-btn').forEach(function(b) { b.classList.remove('active'); });
+      btn.classList.add('active');
+      renderCards(btn.getAttribute('data-filter'));
+    });
+  });
+
+  // Close modal
+  document.getElementById('modalCloseBtn').addEventListener('click', closeModal);
+  document.getElementById('modalOverlay').addEventListener('click', function(e) {
+    if (e.target === document.getElementById('modalOverlay')) closeModal();
+  });
+  document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closeModal(); });
+
+  renderCards('all');
+
+}); // end DOMContentLoaded
+</script>
+</body>
+</html>
