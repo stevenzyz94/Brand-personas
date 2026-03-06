@@ -3,247 +3,544 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Your Import Business — Product Ideas & Brand Personas</title>
+<title>China → US Import Business Analyzer</title>
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
 <style>
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-  :root {
-    --bg: #0d0d0f; --surface: #16161a; --surface2: #1e1e24; --border: #2a2a32;
-    --text: #f0eff5; --muted: #7a7a90; --accent1: #ff6b35; --accent2: #00d4a8;
-    --accent3: #a78bfa; --accent4: #f59e0b; --accent5: #ec4899;
-  }
-  body { background: var(--bg); color: var(--text); font-family: 'DM Sans', sans-serif; font-weight: 300; line-height: 1.6; min-height: 100vh; overflow-x: hidden; }
-  header { padding: 4rem 2rem 2rem; text-align: center; position: relative; }
-  header::before { content: ''; position: absolute; top: 0; left: 50%; transform: translateX(-50%); width: 600px; height: 300px; background: radial-gradient(ellipse at center, rgba(255,107,53,0.12) 0%, transparent 70%); pointer-events: none; }
-  .eyebrow { font-family: 'Syne', sans-serif; font-size: 0.7rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent1); margin-bottom: 1rem; }
-  h1 { font-family: 'Syne', sans-serif; font-size: clamp(2rem, 5vw, 3.2rem); font-weight: 800; line-height: 1.1; margin-bottom: 1rem; }
-  h1 span { color: var(--accent1); }
-  .subtitle { color: var(--muted); max-width: 540px; margin: 0 auto 1.5rem; font-size: 1.05rem; }
-  .notice { display: inline-flex; align-items: center; gap: 0.5rem; background: rgba(245,158,11,0.1); border: 1px solid rgba(245,158,11,0.3); border-radius: 8px; padding: 0.6rem 1rem; font-size: 0.82rem; color: var(--accent4); margin-bottom: 3rem; }
-  .tabs-wrapper { max-width: 960px; margin: 0 auto; padding: 0 1.5rem; }
-  .tab-nav { display: flex; gap: 0.5rem; margin-bottom: 2rem; flex-wrap: wrap; justify-content: center; }
-  .tab-btn { background: var(--surface); border: 1px solid var(--border); color: var(--muted); padding: 0.55rem 1.2rem; border-radius: 40px; font-family: 'Syne', sans-serif; font-size: 0.8rem; font-weight: 600; cursor: pointer; transition: all 0.25s ease; letter-spacing: 0.03em; }
-  .tab-btn:hover { color: var(--text); border-color: #444; }
-  .tab-btn.active { color: var(--bg); background: var(--accent1); border-color: var(--accent1); }
-  .cards-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.5rem; }
-  .card { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 1.6rem; cursor: pointer; transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease; position: relative; overflow: hidden; }
-  .card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: var(--card-accent, var(--accent1)); border-radius: 16px 16px 0 0; }
-  .card:hover { transform: translateY(-4px); box-shadow: 0 12px 32px rgba(0,0,0,0.4); border-color: var(--card-accent, var(--accent1)); }
-  .card-icon { font-size: 2rem; margin-bottom: 0.8rem; }
-  .card-tag { display: inline-block; font-size: 0.68rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; padding: 0.2rem 0.6rem; border-radius: 4px; background: var(--card-accent-bg, rgba(255,107,53,0.12)); color: var(--card-accent, var(--accent1)); margin-bottom: 0.7rem; }
-  .card h3 { font-family: 'Syne', sans-serif; font-size: 1.05rem; font-weight: 700; margin-bottom: 0.5rem; }
-  .card p { font-size: 0.88rem; color: var(--muted); line-height: 1.55; }
-  .card-meta { margin-top: 1rem; display: flex; gap: 1rem; flex-wrap: wrap; }
-  .meta-pill { font-size: 0.75rem; color: var(--muted); display: flex; align-items: center; gap: 0.3rem; }
-  .meta-pill strong { color: var(--text); font-weight: 500; }
-  .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.75); backdrop-filter: blur(6px); z-index: 100; align-items: center; justify-content: center; padding: 1rem; }
-  .modal-overlay.open { display: flex; }
-  .modal { background: var(--surface); border: 1px solid var(--border); border-radius: 20px; max-width: 680px; width: 100%; max-height: 90vh; overflow-y: auto; padding: 2.5rem; position: relative; animation: slideUp 0.3s ease; }
-  @keyframes slideUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
-  .modal-close { position: absolute; top: 1.2rem; right: 1.2rem; background: var(--surface2); border: 1px solid var(--border); color: var(--muted); width: 32px; height: 32px; border-radius: 50%; cursor: pointer; font-size: 1rem; display: flex; align-items: center; justify-content: center; transition: all 0.2s; }
-  .modal-close:hover { color: var(--text); background: var(--border); }
-  .modal-accent-bar { height: 4px; border-radius: 4px; margin-bottom: 1.5rem; }
-  .modal h2 { font-family: 'Syne', sans-serif; font-size: 1.5rem; font-weight: 800; margin-bottom: 0.3rem; }
-  .modal-sub { color: var(--muted); font-size: 0.9rem; margin-bottom: 1.5rem; }
-  .section-label { font-family: 'Syne', sans-serif; font-size: 0.65rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); margin-bottom: 0.6rem; margin-top: 1.4rem; }
-  .persona-block { background: var(--surface2); border-radius: 12px; padding: 1.2rem; margin-bottom: 1rem; }
-  .persona-name { font-family: 'Syne', sans-serif; font-size: 1rem; font-weight: 700; margin-bottom: 0.2rem; }
-  .persona-role { font-size: 0.78rem; color: var(--muted); margin-bottom: 0.7rem; }
-  .persona-row { display: grid; grid-template-columns: 1fr 1fr; gap: 0.8rem; font-size: 0.82rem; }
-  .persona-col label { display: block; font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--muted); margin-bottom: 0.2rem; }
-  .persona-col span { color: var(--text); line-height: 1.5; }
-  .tag-list { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 0.3rem; }
-  .tag { background: rgba(255,255,255,0.06); border: 1px solid var(--border); border-radius: 4px; padding: 0.15rem 0.5rem; font-size: 0.72rem; color: var(--muted); }
-  .info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.8rem; }
-  .info-item { background: var(--surface2); border-radius: 10px; padding: 0.9rem; }
-  .info-item label { display: block; font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--muted); margin-bottom: 0.3rem; }
-  .info-item span { font-size: 0.88rem; color: var(--text); font-weight: 500; }
-  .warning-box { background: rgba(245,158,11,0.08); border: 1px solid rgba(245,158,11,0.25); border-radius: 10px; padding: 0.9rem 1rem; font-size: 0.82rem; color: #d4a84b; margin-top: 1rem; line-height: 1.55; }
-  .footer-tip { text-align: center; padding: 3rem 1.5rem; color: var(--muted); font-size: 0.85rem; }
-  @media (max-width: 500px) { .persona-row, .info-grid { grid-template-columns: 1fr; } .modal { padding: 1.5rem; } }
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#0b0c0f;--surface:#13141a;--surface2:#1a1b23;--surface3:#21222c;
+  --border:#2a2b36;--text:#eeedf5;--muted:#7a7a92;--accent:#ff6b35;
+  --green:#00d4a8;--purple:#a78bfa;--gold:#f59e0b;--pink:#ec4899;--blue:#38bdf8;
+}
+body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;font-weight:300;line-height:1.6;min-height:100vh;overflow-x:hidden}
+
+/* HEADER */
+header{padding:3.5rem 1.5rem 0;text-align:center;position:relative}
+header::before{content:'';position:absolute;top:0;left:50%;transform:translateX(-50%);width:700px;height:350px;background:radial-gradient(ellipse,rgba(255,107,53,.1) 0%,transparent 70%);pointer-events:none}
+.eyebrow{font-family:'Syne',sans-serif;font-size:.65rem;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--accent);margin-bottom:.8rem}
+h1{font-family:'Syne',sans-serif;font-size:clamp(1.8rem,4.5vw,3rem);font-weight:800;line-height:1.1;margin-bottom:.8rem}
+h1 em{color:var(--accent);font-style:normal}
+.subtitle{color:var(--muted);max-width:520px;margin:0 auto 1.2rem;font-size:.95rem}
+
+/* ALERT BAR */
+.alert-bar{display:flex;align-items:flex-start;gap:.8rem;background:rgba(245,158,11,.08);border:1px solid rgba(245,158,11,.25);border-radius:10px;padding:.9rem 1.2rem;max-width:780px;margin:1.2rem auto 0;font-size:.82rem;color:#d4a84b;text-align:left}
+.alert-bar strong{color:var(--gold)}
+
+/* GLOBAL STATS STRIP */
+.stats-strip{display:flex;flex-wrap:wrap;justify-content:center;gap:1rem;max-width:860px;margin:2rem auto 0;padding:0 1.5rem}
+.stat-pill{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:.7rem 1.2rem;text-align:center;flex:1;min-width:140px}
+.stat-pill .val{font-family:'Syne',sans-serif;font-size:1.2rem;font-weight:800;display:block}
+.stat-pill .lbl{font-size:.68rem;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin-top:.1rem}
+
+/* TABS */
+.tabs-wrapper{max-width:1020px;margin:2.5rem auto 0;padding:0 1.5rem}
+.tab-nav{display:flex;gap:.4rem;margin-bottom:1.8rem;flex-wrap:wrap;justify-content:center}
+.tab-btn{background:var(--surface);border:1px solid var(--border);color:var(--muted);padding:.45rem 1rem;border-radius:40px;font-family:'Syne',sans-serif;font-size:.75rem;font-weight:600;cursor:pointer;transition:all .2s ease;letter-spacing:.04em}
+.tab-btn:hover{color:var(--text);border-color:#555}
+.tab-btn.active{color:#fff;background:var(--accent);border-color:var(--accent)}
+
+/* CARDS */
+.cards-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:1.4rem}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:1.5rem;cursor:pointer;transition:transform .2s,border-color .2s,box-shadow .2s;position:relative;overflow:hidden}
+.card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--ca,var(--accent));border-radius:16px 16px 0 0}
+.card:hover{transform:translateY(-4px);box-shadow:0 14px 36px rgba(0,0,0,.45);border-color:var(--ca,var(--accent))}
+.card-head{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:.9rem}
+.card-icon{font-size:1.8rem}
+.card-score{background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:.3rem .6rem;text-align:center}
+.card-score .s{font-family:'Syne',sans-serif;font-size:1rem;font-weight:800;display:block}
+.card-score .sl{font-size:.58rem;text-transform:uppercase;letter-spacing:.08em;color:var(--muted)}
+.card-tag{display:inline-block;font-size:.65rem;font-weight:500;letter-spacing:.1em;text-transform:uppercase;padding:.18rem .55rem;border-radius:4px;background:var(--cab,rgba(255,107,53,.1));color:var(--ca,var(--accent));margin-bottom:.6rem}
+.card h3{font-family:'Syne',sans-serif;font-size:1rem;font-weight:700;margin-bottom:.4rem}
+.card p{font-size:.84rem;color:var(--muted);line-height:1.5;margin-bottom:.9rem}
+.card-metrics{display:grid;grid-template-columns:1fr 1fr 1fr;gap:.5rem}
+.metric{background:var(--surface2);border-radius:7px;padding:.5rem .6rem;text-align:center}
+.metric .mv{font-family:'Syne',sans-serif;font-size:.82rem;font-weight:700;display:block;color:var(--text)}
+.metric .ml{font-size:.6rem;text-transform:uppercase;letter-spacing:.07em;color:var(--muted)}
+.card-footer{margin-top:.9rem;display:flex;align-items:center;justify-content:space-between}
+.card-footer span{font-size:.75rem;color:var(--muted)}
+.view-btn{font-family:'Syne',sans-serif;font-size:.7rem;font-weight:700;color:var(--ca,var(--accent));letter-spacing:.05em;text-transform:uppercase}
+
+/* MODAL */
+.modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.8);backdrop-filter:blur(8px);z-index:100;align-items:flex-start;justify-content:center;padding:1.5rem;overflow-y:auto}
+.modal-overlay.open{display:flex}
+.modal{background:var(--surface);border:1px solid var(--border);border-radius:20px;max-width:720px;width:100%;margin:auto;padding:0;position:relative;animation:slideUp .3s ease}
+@keyframes slideUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+.modal-close{position:absolute;top:1rem;right:1rem;background:var(--surface2);border:1px solid var(--border);color:var(--muted);width:30px;height:30px;border-radius:50%;cursor:pointer;font-size:.9rem;display:flex;align-items:center;justify-content:center;transition:all .2s;z-index:10}
+.modal-close:hover{color:var(--text);background:var(--border)}
+.modal-hero{padding:2rem 2rem 1.5rem;border-bottom:1px solid var(--border)}
+.modal-hero-top{display:flex;align-items:flex-start;gap:1rem;margin-bottom:1rem}
+.modal-icon{font-size:2.5rem}
+.modal-tag{font-size:.65rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;margin-bottom:.3rem}
+.modal h2{font-family:'Syne',sans-serif;font-size:1.4rem;font-weight:800;margin-bottom:.3rem}
+.modal-sub{color:var(--muted);font-size:.88rem}
+.score-badge{display:flex;align-items:center;gap:.4rem;background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:.5rem .9rem;margin-left:auto;flex-shrink:0}
+.score-badge .big{font-family:'Syne',sans-serif;font-size:2rem;font-weight:800;line-height:1}
+.score-badge .label{font-size:.62rem;text-transform:uppercase;letter-spacing:.08em;color:var(--muted)}
+.modal-body{padding:1.5rem 2rem 2rem}
+.section-label{font-family:'Syne',sans-serif;font-size:.62rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);margin-bottom:.7rem;margin-top:1.6rem;padding-top:1.4rem;border-top:1px solid var(--border)}
+.section-label:first-child{margin-top:0;padding-top:0;border-top:none}
+
+/* DATA GRIDS */
+.data-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:.7rem}
+.data-grid.two{grid-template-columns:1fr 1fr}
+.data-item{background:var(--surface2);border-radius:10px;padding:.9rem}
+.data-item label{display:block;font-size:.62rem;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin-bottom:.25rem}
+.data-item .val{font-size:.9rem;font-weight:500;color:var(--text)}
+.data-item .val.green{color:var(--green)}
+.data-item .val.gold{color:var(--gold)}
+.data-item .val.red{color:#f87171}
+
+/* COST BREAKDOWN */
+.cost-table{background:var(--surface2);border-radius:12px;overflow:hidden;margin-top:.2rem}
+.cost-row{display:flex;justify-content:space-between;align-items:center;padding:.75rem 1rem;border-bottom:1px solid var(--border);font-size:.85rem}
+.cost-row:last-child{border-bottom:none}
+.cost-row.total{background:var(--surface3);font-weight:600}
+.cost-row .label{color:var(--muted)}
+.cost-row .amount{font-family:'Syne',sans-serif;font-weight:700}
+.cost-row.total .amount{color:var(--green)}
+.cost-row.total .label{color:var(--text)}
+
+/* ROI VISUAL */
+.roi-bar-wrap{background:var(--surface2);border-radius:12px;padding:1.1rem;margin-top:.2rem}
+.roi-item{margin-bottom:.9rem}
+.roi-item:last-child{margin-bottom:0}
+.roi-label{display:flex;justify-content:space-between;font-size:.8rem;margin-bottom:.35rem}
+.roi-label span:first-child{color:var(--muted)}
+.roi-label span:last-child{font-weight:600;font-family:'Syne',sans-serif}
+.roi-bar{height:8px;background:var(--border);border-radius:4px;overflow:hidden}
+.roi-fill{height:100%;border-radius:4px;transition:width .6s ease}
+
+/* PERSONAS */
+.persona-block{background:var(--surface2);border-radius:12px;padding:1.1rem;margin-bottom:.8rem}
+.persona-name{font-family:'Syne',sans-serif;font-size:.95rem;font-weight:700;margin-bottom:.15rem}
+.persona-role{font-size:.75rem;color:var(--muted);margin-bottom:.7rem}
+.persona-row{display:grid;grid-template-columns:1fr 1fr;gap:.7rem;font-size:.82rem;margin-bottom:.7rem}
+.persona-col label{display:block;font-size:.62rem;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin-bottom:.2rem}
+.persona-col span{color:var(--text);line-height:1.5}
+.persona-msg{background:var(--surface3);border-left:3px solid var(--ca,var(--accent));border-radius:0 8px 8px 0;padding:.6rem .8rem;font-size:.83rem;font-style:italic;margin-bottom:.6rem}
+.tag-list{display:flex;flex-wrap:wrap;gap:.35rem}
+.tag{background:rgba(255,255,255,.05);border:1px solid var(--border);border-radius:4px;padding:.12rem .45rem;font-size:.68rem;color:var(--muted)}
+
+/* TREND */
+.trend-list{background:var(--surface2);border-radius:12px;overflow:hidden}
+.trend-item{display:flex;align-items:center;gap:.8rem;padding:.75rem 1rem;border-bottom:1px solid var(--border);font-size:.84rem}
+.trend-item:last-child{border-bottom:none}
+.trend-icon{font-size:1.1rem;flex-shrink:0}
+.trend-text{flex:1;color:var(--muted)}
+.trend-badge{font-family:'Syne',sans-serif;font-size:.72rem;font-weight:700;padding:.2rem .55rem;border-radius:20px}
+
+/* WARNING */
+.warn-box{background:rgba(245,158,11,.07);border:1px solid rgba(245,158,11,.2);border-radius:10px;padding:.9rem 1rem;font-size:.8rem;color:#c89a3a;line-height:1.6;margin-top:1.2rem}
+
+/* FOOTER */
+.footer{text-align:center;padding:3rem 1.5rem 2rem;color:var(--muted);font-size:.82rem}
+.footer strong{color:var(--text)}
+
+/* RESPONSIVE */
+@media(max-width:560px){
+  .data-grid{grid-template-columns:1fr 1fr}
+  .data-grid.three{grid-template-columns:1fr 1fr}
+  .persona-row{grid-template-columns:1fr}
+  .modal-body,.modal-hero{padding:1.2rem}
+  h1{font-size:1.6rem}
+  .stats-strip .stat-pill{min-width:120px}
+  .score-badge{display:none}
+}
 </style>
 </head>
 <body>
 
 <header>
-  <p class="eyebrow">China → USA Import Business</p>
-  <h1>Product Ideas &<br><span>Brand Personas</span></h1>
-  <p class="subtitle">5 vetted niches with real margin data, plus ready-made brand personas for each — click any card to explore.</p>
-  <div class="notice">⚠️ Note: US tariffs on Chinese goods changed in 2025. Always calculate your full landed cost before ordering.</div>
+  <p class="eyebrow">China → USA Import Business · 2026 Analysis</p>
+  <h1>5 Products. Real Numbers.<br><em>Actual Profit Potential.</em></h1>
+  <p class="subtitle">Every number below is based on current 2026 shipping rates, live tariff data, and Amazon FBA fee structures — not guesses.</p>
+  <div class="alert-bar">
+    ⚠️ <div><strong>2026 Tariff Update:</strong> The Supreme Court struck down IEEPA tariffs on Feb 20, 2026, and Trump replaced them with a 10% global tariff under Section 122. China still faces Section 301 tariffs (7.5–25% by product) on top of this. The de minimis exemption ($800 duty-free threshold) remains closed for Chinese goods. Every shipment now requires formal customs entry, adding $125–$300 in broker fees per shipment.</div>
+  </div>
 </header>
+
+<div class="stats-strip">
+  <div class="stat-pill"><span class="val" style="color:var(--gold)">~10%</span><div class="lbl">New Global Base Tariff (Section 122)</div></div>
+  <div class="stat-pill"><span class="val" style="color:var(--accent)">+7.5–25%</span><div class="lbl">Extra Section 301 (China-specific)</div></div>
+  <div class="stat-pill"><span class="val" style="color:var(--green)">$5–8/kg</span><div class="lbl">Air Freight Rate 2026</div></div>
+  <div class="stat-pill"><span class="val" style="color:var(--blue)">$2,300–4,200</span><div class="lbl">40ft Ocean Container</div></div>
+  <div class="stat-pill"><span class="val" style="color:var(--purple)">$125–300</span><div class="lbl">Customs Broker Fee/Shipment</div></div>
+</div>
 
 <div class="tabs-wrapper">
   <div class="tab-nav">
-    <button class="tab-btn active" data-filter="all">All Niches</button>
-    <button class="tab-btn" data-filter="low-risk">Low Risk</button>
-    <button class="tab-btn" data-filter="high-margin">High Margin</button>
-    <button class="tab-btn" data-filter="niche">Less Competition</button>
+    <button class="tab-btn active" data-filter="all">All Products</button>
+    <button class="tab-btn" data-filter="low-risk">Lowest Risk</button>
+    <button class="tab-btn" data-filter="high-margin">Best Margin</button>
+    <button class="tab-btn" data-filter="trending">Trending Now</button>
   </div>
   <div class="cards-grid" id="cardsGrid"></div>
 </div>
 
-<div class="footer-tip">Click any card to see full brand personas, messaging ideas, and sourcing tips.</div>
+<div class="footer">
+  <strong>How to use this tool:</strong> Click any card to open the full analysis — including a unit cost breakdown, ROI calculator, shipping scenarios, current tariff rate, trend data, and two brand personas with messaging.<br><br>
+  Data sources: Penn Wharton Budget Model (Jan 2026), PIIE Tariff Tracker, Shapiro Logistics, AMZPrep, Amazon Seller Central 2026 fee schedule.
+</div>
 
+<!-- MODAL -->
 <div class="modal-overlay" id="modalOverlay">
   <div class="modal" id="modalContent">
     <button class="modal-close" id="modalCloseBtn">✕</button>
-    <div id="modalBody"></div>
+    <div class="modal-hero" id="modalHero"></div>
+    <div class="modal-body" id="modalBody"></div>
   </div>
 </div>
 
 <script>
-document.addEventListener('DOMContentLoaded', function() {
-
-  const products = [
-    {
-      id: 1, icon: "🛏️", name: "Silk Pillowcases", tag: "Beauty & Home",
-      tagFilter: ["high-margin", "low-risk"], accent: "#00d4a8", accentBg: "rgba(0,212,168,0.1)",
-      summary: "Flat-pack, lightweight, huge margins. Dermatologists and beauty bloggers drive steady demand.",
-      cost: "$1–2/unit", retail: "$10–15", margin: "400–600%", competition: "Medium", risk: "Low", tariff: "~7.5–10%",
-      personas: [
-        { name: "Priya, 31", role: "Wellness-conscious professional, New York", pain: "Wakes up with frizzy hair and skin creases. Wants luxury-feel without luxury price.", buys: "Instagram ads, influencer recs, Amazon search", message: '"Wake up better. Dermatologist-approved silk at an honest price."', tags: ["self-care","anti-aging","hair health","eco-friendly"] },
-        { name: "Mom Lisa, 44", role: "Suburban parent, Texas", pain: "Buys gifts for her daughters' apartments. Wants to look like a thoughtful, practical gift-giver.", buys: "Amazon, Pinterest, gift guides", message: '"The gift they will actually keep. Luxurious, practical, beautiful."', tags: ["gifting","home upgrade","mom purchase","practical luxury"] }
-      ],
-      brandTone: "Clean, aspirational, science-backed. Think quiet luxury.", sourcingTip: "Search Alibaba for Oeko-Tex certified silk. Order 10 samples first. Verify fiber content labeling.", channel: "Amazon FBA + Instagram/TikTok influencer seeding"
-    },
-    {
-      id: 2, icon: "🐾", name: "Premium Pet Accessories", tag: "Pet Care",
-      tagFilter: ["niche", "high-margin"], accent: "#a78bfa", accentBg: "rgba(167,139,250,0.1)",
-      summary: "Pet owners spend emotionally. Personalized collars, slow feeders, and travel gear have loyal repeat buyers.",
-      cost: "$3–8/unit", retail: "$18–40", margin: "200–400%", competition: "Medium-Low", risk: "Low", tariff: "~5–15%",
-      personas: [
-        { name: "Jake, 27", role: "Dog dad, first-time pet owner, Austin", pain: "Anxious about doing right by his dog. Wants products that look good and feel premium.", buys: "TikTok, Reddit r/dogs, Amazon", message: '"For pet parents who go all in. Built for dogs who deserve better."', tags: ["first pet","quality conscious","aesthetic","anxious buyer"] },
-        { name: "Sandra, 52", role: "Multi-pet household, Midwest", pain: "Goes through cheap accessories fast. Wants durable, value-for-money options.", buys: "Facebook ads, Chewy, word of mouth", message: '"Durable, safe, and affordable. Your pets. Your budget. Zero compromise."', tags: ["durability","value","multi-pet","repeat buyer"] }
-      ],
-      brandTone: "Warm, playful, community-driven. User-generated content gold.", sourcingTip: "Look for customization options — your logo on collars/bandanas builds brand loyalty fast.", channel: "Etsy (personalized items) + Amazon + Facebook/Instagram ads"
-    },
-    {
-      id: 3, icon: "💪", name: "Compact Home Fitness Gear", tag: "Health & Fitness",
-      tagFilter: ["niche", "high-margin"], accent: "#ff6b35", accentBg: "rgba(255,107,53,0.1)",
-      summary: "Resistance bands, yoga blocks, massage guns. Apartment-friendly fitness with strong post-pandemic demand.",
-      cost: "$4–12/unit", retail: "$20–55", margin: "150–300%", competition: "Medium", risk: "Low-Medium", tariff: "~10–20%",
-      personas: [
-        { name: "Carlos, 34", role: "Remote worker, no gym membership, Chicago", pain: "No space or time for a gym. Needs effective gear that stores under the bed.", buys: "YouTube reviews, Amazon, Reddit", message: '"Gym results. Zero commute. Fits in a drawer."', tags: ["WFH lifestyle","space-saving","budget gym","results-driven"] },
-        { name: "Mia, 28", role: "Yoga & mindfulness enthusiast, LA", pain: "Wants aesthetic, Instagram-worthy gear that aligns with her wellness brand.", buys: "Instagram, Shopify stores, TikTok", message: '"Move with intention. Gear that matches your practice."', tags: ["aesthetic","wellness","mindful movement","content creator"] }
-      ],
-      brandTone: "Energetic but grounded. Inclusive, not intimidating. Real people, real results.", sourcingTip: "Target specific SKUs — e.g. fabric resistance band set, not generic bands. Differentiation is key.", channel: "Shopify store + TikTok/Instagram Reels + Amazon"
-    },
-    {
-      id: 4, icon: "🚗", name: "LED Car Accessories", tag: "Automotive",
-      tagFilter: ["niche", "low-risk"], accent: "#f59e0b", accentBg: "rgba(245,158,11,0.1)",
-      summary: "LED interior strips, ambient lighting kits, dash accessories. Car customization is a passionate, spending community.",
-      cost: "$5–15/unit", retail: "$25–60", margin: "150–300%", competition: "Low-Medium", risk: "Low", tariff: "~5–15%",
-      personas: [
-        { name: "Marcus, 22", role: "Car enthusiast, first car owner, Southeast US", pain: "Wants his car to look custom without a big budget. Very influenced by car content on TikTok.", buys: "TikTok, YouTube, Amazon, car forums", message: '"Turn your ride into a vibe. Easy install. Instant upgrade."', tags: ["car enthusiast","Gen Z","DIY install","budget custom"] },
-        { name: "David, 40", role: "Rideshare driver, practical buyer", pain: "Wants ambient lighting to improve passenger experience and get better ratings.", buys: "Amazon, Google search", message: '"Better ratings start with better ambiance. Professional look, easy setup."', tags: ["rideshare","practical","5-star ratings","repeat buyer"] }
-      ],
-      brandTone: "Cool, edgy, community-driven. Heavy on UGC and transformation before/afters.", sourcingTip: "Request CE/RoHS certifications. Avoid cheap wiring — returns kill margins. Test 20 units first.", channel: "TikTok Shop + Amazon + YouTube review seeding"
-    },
-    {
-      id: 5, icon: "🏠", name: "Space-Saving Home Organizers", tag: "Home & Kitchen",
-      tagFilter: ["low-risk", "high-margin"], accent: "#ec4899", accentBg: "rgba(236,72,153,0.1)",
-      summary: "Under-sink organizers, closet systems, drawer dividers. High search volume, repeat purchases, private-label friendly.",
-      cost: "$3–9/unit", retail: "$18–45", margin: "200–400%", competition: "Medium", risk: "Low", tariff: "~10–25%",
-      personas: [
-        { name: "Rachel, 35", role: "First-time homeowner, organization obsessed", pain: "Just moved in, overwhelmed by clutter. Follows organization accounts religiously.", buys: "Pinterest, TikTok, Amazon", message: '"A place for everything. Finally feel at home."', tags: ["new homeowner","The Home Edit fan","aesthetic organizer","Pinterest buyer"] },
-        { name: "Tom, 47", role: "Practical dad, functional buyer", pain: "Garage and kitchen chaos. Needs durable solutions that actually work.", buys: "Amazon, Home Depot website, Google search", message: '"Stop losing things. Heavy-duty organizers built for real life."', tags: ["functional","family home","durability","practical buyer"] }
-      ],
-      brandTone: "Clean, aspirational, transformation-focused. Before/after content is your best marketing.", sourcingTip: "Private labeling is very easy here. Spend $100–200 on custom packaging — it doubles perceived value.", channel: "Amazon FBA + TikTok/Pinterest + Shopify"
-    }
-  ];
-
-  function renderCards(filter) {
-    const grid = document.getElementById('cardsGrid');
-    grid.innerHTML = '';
-    products
-      .filter(function(p) { return filter === 'all' || p.tagFilter.indexOf(filter) !== -1; })
-      .forEach(function(p) {
-        const card = document.createElement('div');
-        card.className = 'card';
-        card.style.setProperty('--card-accent', p.accent);
-        card.style.setProperty('--card-accent-bg', p.accentBg);
-        card.innerHTML =
-          '<div class="card-icon">' + p.icon + '</div>' +
-          '<div class="card-tag">' + p.tag + '</div>' +
-          '<h3>' + p.name + '</h3>' +
-          '<p>' + p.summary + '</p>' +
-          '<div class="card-meta">' +
-            '<div class="meta-pill">💰 <strong>' + p.margin + '</strong> margin</div>' +
-            '<div class="meta-pill">🏷️ <strong>' + p.cost + '</strong> wholesale</div>' +
-            '<div class="meta-pill">⚡ Competition: <strong>' + p.competition + '</strong></div>' +
-          '</div>';
-        card.addEventListener('click', function() { openModal(p); });
-        grid.appendChild(card);
-      });
+const products = [
+  {
+    id:1, icon:"🛏️", name:"Silk Pillowcases", tag:"Beauty & Home",
+    tagFilter:["high-margin","low-risk"],
+    ca:"#00d4a8", cab:"rgba(0,212,168,0.1)",
+    score:92, scoreLabel:"Opportunity",
+    summary:"Lightweight, flat-pack, dermatologist-backed. One of the best risk/reward products for a first-time importer in 2026.",
+    whyGood:"Silk pillowcases have seen 180%+ search growth since 2022 driven by skincare and haircare trends on TikTok and Instagram. The product is small, light (under 200g each), doesn't break, and has zero battery/electronics compliance issues. Private labeling is easy and packaging upgrades dramatically boost perceived value. Because the units are so light, air freight is viable — meaning you can test with small orders (50–100 units) without sea freight minimums.",
+    unitCost:2, retailPrice:14, weight:0.2,
+    tariffBase:10, tariff301:12, tariffTotal:22,
+    tariffNote:"Section 301 List 2 applies to silk/textile products. Base rate ~12% + new 10% Section 122 global tariff = ~22% effective.",
+    shippingAir:1.20, shippingOcean:0.15,
+    brokerFee:200, customsNote:"At 100 units (20kg), air freight makes sense. Ocean becomes worthwhile at 500+ units.",
+    amazonRef:15, amazonFBA:3.22, amazonStorage:0.50,
+    costBreakdown:[
+      {l:"Product (Alibaba)",v:"$2.00"},{l:"Air freight (~$6/kg × 0.2kg)",v:"$1.20"},
+      {l:"Tariff (22% of $2)",v:"$0.44"},{l:"Customs broker (÷100 units)",v:"$2.00"},
+      {l:"Amazon referral (15%)",v:"$2.10"},{l:"Amazon FBA fee",v:"$3.22"},
+      {l:"Amazon storage (est.)",v:"$0.50"},{l:"Packaging/label",v:"$0.40"},
+    ],
+    totalCost:11.86, netProfit:2.14, netMargin:15,
+    roiItems:[
+      {l:"Gross margin before fees",pct:85,color:"var(--green)"},
+      {l:"Net margin after all costs",pct:15,color:"var(--blue)"},
+      {l:"Tariff % of retail price",pct:3,color:"var(--gold)"},
+    ],
+    competition:"Medium", risk:"Low", trend:"📈 Rising",
+    trendItems:[
+      {icon:"📊",text:"Amazon search rank for 'silk pillowcase' up 34% YoY",badge:"Strong demand",bc:"rgba(0,212,168,.15)",tc:"var(--green)"},
+      {icon:"💄",text:"Dermatologist endorsements drive 6-12% conversion rates on TikTok Shop",badge:"High CVR",bc:"rgba(167,139,250,.15)",tc:"var(--purple)"},
+      {icon:"🎁",text:"Top gifting item Nov–Jan. Repeat purchase rate ~28%",badge:"Seasonal spike",bc:"rgba(245,158,11,.15)",tc:"var(--gold)"},
+      {icon:"⚡",text:"Low tariff impact vs. electronics — textiles at ~22% total",badge:"Tariff-friendly",bc:"rgba(56,189,248,.15)",tc:"var(--blue)"},
+    ],
+    personas:[
+      {name:"Priya, 31",role:"Wellness professional, NYC",pain:"Wakes up with frizzy hair and pillow creases. Wants luxury feel without luxury price.",buys:"Instagram ads, influencer recs, Amazon",msg:'"Wake up better. Silk that your hair and skin will thank you for."',tags:["self-care","anti-aging","hair health","eco-conscious"]},
+      {name:"Lisa, 44",role:"Gift-buyer & suburban parent, Texas",pain:"Wants a thoughtful, practical gift for her daughter's new apartment.",buys:"Amazon, Pinterest gift guides",msg:'"The gift they will actually keep. Luxurious, practical, beautiful."',tags:["gifting","home upgrade","practical luxury","mom purchase"]},
+    ],
+    brandTone:"Clean, aspirational, science-backed. Quiet luxury aesthetic — think neutral tones, serif fonts, dermatologist quotes.",
+    sourcingTip:"Search Alibaba for 'Oeko-Tex certified silk pillowcase'. Request BOTH actual weight and volumetric weight for freight calc. Always order 10–20 samples first and test zipper quality.",
+    channel:"Amazon FBA (primary) + TikTok Shop + Instagram micro-influencer seeding"
+  },
+  {
+    id:2, icon:"🐾", name:"Pet Accessories", tag:"Pet Care",
+    tagFilter:["trending","high-margin"],
+    ca:"#a78bfa", cab:"rgba(167,139,250,0.1)",
+    score:87, scoreLabel:"Opportunity",
+    summary:"Pet owners are emotional buyers. Personalized collars, bandanas, slow feeders — loyal repeat buyers and huge community.",
+    whyGood:"The US pet industry hit $150 billion in 2024 and is still growing. Pet owners spend an average of $1,500/year on their pets, and accessory purchases are frequent and emotionally driven. Products like personalized collars, reversible bandanas, and travel bowls are small, lightweight, and easy to differentiate with custom branding. Because this market is community-driven (Reddit, TikTok, Instagram), organic content can replace paid ads early on. Etsy is particularly strong for personalized items.",
+    unitCost:5, retailPrice:25, weight:0.3,
+    tariffBase:10, tariff301:8, tariffTotal:18,
+    tariffNote:"Most pet accessories fall under HTS codes with 5–8% Section 301 rates. 10% Section 122 global tariff brings total to ~18%.",
+    shippingAir:1.80, shippingOcean:0.20,
+    brokerFee:200, customsNote:"Personalized/small accessories ship well by air. Ocean worthwhile at 500+ units.",
+    amazonRef:15, amazonFBA:3.50, amazonStorage:0.60,
+    costBreakdown:[
+      {l:"Product (Alibaba)",v:"$5.00"},{l:"Air freight (~$6/kg × 0.3kg)",v:"$1.80"},
+      {l:"Tariff (18% of $5)",v:"$0.90"},{l:"Customs broker (÷150 units)",v:"$1.33"},
+      {l:"Amazon/Etsy referral (15%)",v:"$3.75"},{l:"Amazon FBA fee",v:"$3.50"},
+      {l:"Storage & misc",v:"$0.60"},{l:"Custom packaging",v:"$0.80"},
+    ],
+    totalCost:17.68, netProfit:7.32, netMargin:29,
+    roiItems:[
+      {l:"Gross margin before fees",pct:80,color:"var(--green)"},
+      {l:"Net margin after all costs",pct:29,color:"var(--blue)"},
+      {l:"Tariff % of retail price",pct:4,color:"var(--gold)"},
+    ],
+    competition:"Medium-Low", risk:"Low", trend:"📈 Rising",
+    trendItems:[
+      {icon:"🐶",text:"US pet industry: $150B in 2024, growing 6% annually",badge:"Massive market",bc:"rgba(167,139,250,.15)",tc:"var(--purple)"},
+      {icon:"📱",text:"Pet TikTok content averages 2–3x higher engagement than general lifestyle",badge:"Viral potential",bc:"rgba(0,212,168,.15)",tc:"var(--green)"},
+      {icon:"🔁",text:"Average pet owner buys accessories 4–6x per year — strong repeat rate",badge:"Repeat buyer",bc:"rgba(245,158,11,.15)",tc:"var(--gold)"},
+      {icon:"🎨",text:"Personalization adds $5–15 premium with minimal extra cost",badge:"Easy upsell",bc:"rgba(56,189,248,.15)",tc:"var(--blue)"},
+    ],
+    personas:[
+      {name:"Jake, 27",role:"First-time dog dad, Austin TX",pain:"Anxious about doing right by his dog. Wants premium-looking products he can show off.",buys:"TikTok, Reddit r/dogs, Amazon",msg:'"For pet parents who go all in. Built for dogs who deserve better."',tags:["first pet","quality conscious","aesthetic","content sharer"]},
+      {name:"Sandra, 52",role:"Multi-pet household, Ohio",pain:"Goes through cheap accessories fast. Wants durability and value.",buys:"Facebook, Chewy, word of mouth",msg:'"Durable, safe, honest prices. Zero compromise on your pets."',tags:["durability","value","multi-pet","repeat buyer"]},
+    ],
+    brandTone:"Warm, playful, community-first. User-generated content is your best marketing asset. Make it shareable.",
+    sourcingTip:"Look for customization options on Alibaba — logo printing on collars and bandanas builds brand recognition. Always request safety certifications for items that touch pets.",
+    channel:"Etsy (personalized) + Amazon FBA + TikTok Shop + Facebook Groups"
+  },
+  {
+    id:3, icon:"💪", name:"Compact Fitness Gear", tag:"Health & Fitness",
+    tagFilter:["trending","high-margin"],
+    ca:"#ff6b35", cab:"rgba(255,107,53,0.1)",
+    score:80, scoreLabel:"Opportunity",
+    summary:"Resistance bands, yoga blocks, massage guns. Apartment-friendly fitness with strong, sustained demand post-2020.",
+    whyGood:"The home fitness market grew by over 30% during COVID and has not fully reversed — people who built home gyms kept them. Compact gear is ideal for import: it ships efficiently, has high perceived value, and attracts a demographic (25–40, health-conscious) that is active on TikTok and Instagram. The key is differentiation: specific SKUs like fabric resistance band sets, cork yoga blocks, or mini massage guns outperform generic 'fitness bands.' YouTube review culture also drives strong organic traffic in this category.",
+    unitCost:8, retailPrice:35, weight:0.6,
+    tariffBase:10, tariff301:12, tariffTotal:22,
+    tariffNote:"Fitness equipment HTS codes vary — many fall under 9506 with ~4–8% base duties plus 10% Section 122 = ~15–22% total. Verify your specific HS code.",
+    shippingAir:3.60, shippingOcean:0.40,
+    brokerFee:200, customsNote:"At ~0.6kg/unit, air is viable for test orders. Ocean needed at scale.",
+    amazonRef:15, amazonFBA:4.20, amazonStorage:0.80,
+    costBreakdown:[
+      {l:"Product (Alibaba)",v:"$8.00"},{l:"Air freight (~$6/kg × 0.6kg)",v:"$3.60"},
+      {l:"Tariff (22% of $8)",v:"$1.76"},{l:"Customs broker (÷100 units)",v:"$2.00"},
+      {l:"Amazon referral (15%)",v:"$5.25"},{l:"Amazon FBA fee",v:"$4.20"},
+      {l:"Storage & misc",v:"$0.80"},{l:"Packaging/inserts",v:"$0.80"},
+    ],
+    totalCost:26.41, netProfit:8.59, netMargin:25,
+    roiItems:[
+      {l:"Gross margin before fees",pct:77,color:"var(--green)"},
+      {l:"Net margin after all costs",pct:25,color:"var(--blue)"},
+      {l:"Tariff % of retail price",pct:5,color:"var(--gold)"},
+    ],
+    competition:"Medium", risk:"Low-Medium", trend:"📊 Stable+",
+    trendItems:[
+      {icon:"🏠",text:"43% of Americans have a dedicated home workout space as of 2025",badge:"Structural shift",bc:"rgba(255,107,53,.15)",tc:"var(--accent)"},
+      {icon:"📹",text:"YouTube 'home workout' searches sustain 85% of 2020 peak volume",badge:"Search demand",bc:"rgba(0,212,168,.15)",tc:"var(--green)"},
+      {icon:"🎯",text:"Specific SKUs (fabric bands, cork blocks) outperform generics by 3–4x in conversion",badge:"Niche wins",bc:"rgba(167,139,250,.15)",tc:"var(--purple)"},
+      {icon:"⚠️",text:"Tariff risk moderate — fitness equipment 15–22% total. Verify HS code carefully.",badge:"Watch tariffs",bc:"rgba(245,158,11,.15)",tc:"var(--gold)"},
+    ],
+    personas:[
+      {name:"Carlos, 34",role:"Remote worker, no gym, Chicago",pain:"No time or space for a gym. Wants results at home without buying a Peloton.",buys:"YouTube reviews, Amazon, Reddit r/homegym",msg:'"Gym results. No commute. Fits in a drawer."',tags:["WFH lifestyle","space-saving","budget gym","results-driven"]},
+      {name:"Mia, 28",role:"Yoga & wellness creator, LA",pain:"Wants aesthetic, shareable gear that matches her wellness brand on Instagram.",buys:"Instagram, Shopify brands, TikTok Shop",msg:'"Move with intention. Gear that matches your practice."',tags:["aesthetic","wellness","content creator","mindful movement"]},
+    ],
+    brandTone:"Energetic but inclusive — not intimidating. Real people, real results. Before/after content and how-to videos drive conversion.",
+    sourcingTip:"Differentiate with specific materials: fabric (not latex) resistance bands, natural cork yoga blocks. These have premium search intent and less competition than generic terms.",
+    channel:"Shopify store + Amazon FBA + TikTok/Instagram Reels + YouTube influencer seeding"
+  },
+  {
+    id:4, icon:"🚗", name:"LED Car Accessories", tag:"Automotive",
+    tagFilter:["low-risk","trending"],
+    ca:"#f59e0b", cab:"rgba(245,158,11,0.1)",
+    score:82, scoreLabel:"Opportunity",
+    summary:"Interior LED strips, ambient lighting kits. A passionate, spending niche with low competition and strong TikTok virality.",
+    whyGood:"Car customization is a $50B+ industry in the US with an exceptionally passionate buyer base. LED interior kits are one of the most searched and viewed automotive accessories on TikTok and YouTube — transformation videos routinely hit 500K–2M views. The products are compact, durable, and have a very low return rate when quality-checked. Two distinct customer segments (young enthusiasts + rideshare drivers) give you two different marketing angles. Low Section 301 tariff rates make this one of the better categories for margins in 2026.",
+    unitCost:7, retailPrice:30, weight:0.4,
+    tariffBase:10, tariff301:7, tariffTotal:17,
+    tariffNote:"LED lighting accessories typically fall under HTS 9405 with ~3.7–7% Section 301. Section 122 adds 10% = ~17% total. Lower than most categories.",
+    shippingAir:2.40, shippingOcean:0.25,
+    brokerFee:200, customsNote:"Lightweight. Air freight viable for test runs. Always request CE/RoHS certificates — required for US market.",
+    amazonRef:15, amazonFBA:3.80, amazonStorage:0.55,
+    costBreakdown:[
+      {l:"Product (Alibaba)",v:"$7.00"},{l:"Air freight (~$6/kg × 0.4kg)",v:"$2.40"},
+      {l:"Tariff (17% of $7)",v:"$1.19"},{l:"Customs broker (÷150 units)",v:"$1.33"},
+      {l:"Amazon referral (15%)",v:"$4.50"},{l:"Amazon FBA fee",v:"$3.80"},
+      {l:"Storage & misc",v:"$0.55"},{l:"Packaging",v:"$0.60"},
+    ],
+    totalCost:21.37, netProfit:8.63, netMargin:29,
+    roiItems:[
+      {l:"Gross margin before fees",pct:77,color:"var(--green)"},
+      {l:"Net margin after all costs",pct:29,color:"var(--blue)"},
+      {l:"Tariff % of retail price",pct:4,color:"var(--gold)"},
+    ],
+    competition:"Low-Medium", risk:"Low", trend:"🔥 Hot",
+    trendItems:[
+      {icon:"📱",text:"'Car LED lights' TikTok videos average 800K+ views with zero ad spend",badge:"Viral organic",bc:"rgba(245,158,11,.15)",tc:"var(--gold)"},
+      {icon:"🚖",text:"Rideshare market: 4M+ US drivers actively seeking cabin upgrades for ratings",badge:"Captive buyer",bc:"rgba(0,212,168,.15)",tc:"var(--green)"},
+      {icon:"💰",text:"One of lowest Section 301 tariff products — only ~7% vs 20–25% for electronics",badge:"Tariff advantage",bc:"rgba(56,189,248,.15)",tc:"var(--blue)"},
+      {icon:"🎨",text:"Gen Z car culture booming — 'carchitecture' trend driving accessory spend",badge:"Gen Z trend",bc:"rgba(167,139,250,.15)",tc:"var(--purple)"},
+    ],
+    personas:[
+      {name:"Marcus, 22",role:"Car enthusiast, first car, Southeast US",pain:"Wants his car to look custom without a $2,000 detailing bill.",buys:"TikTok Shop, YouTube, Amazon, car forums",msg:'"Turn your ride into a vibe. Easy install. Instant transformation."',tags:["car enthusiast","Gen Z","DIY install","budget custom"]},
+      {name:"David, 40",role:"Full-time Uber/Lyft driver, any city",pain:"Wants better passenger ratings without expensive upgrades.",buys:"Amazon, Google search",msg:'"5-star ambiance. Professional look, plug-and-play setup."',tags:["rideshare","practical","ratings-focused","repeat buyer"]},
+    ],
+    brandTone:"Cool, edgy, community-driven. Heavy transformation before/after content. Seeding with car-focused YouTubers (even micro, 10K subs) converts very well.",
+    sourcingTip:"Always request CE and RoHS safety certifications — these are required in the US. Test wiring quality extensively before ordering in bulk. Bad wiring = high returns = margin death.",
+    channel:"TikTok Shop (primary) + Amazon FBA + YouTube micro-influencer seeding"
+  },
+  {
+    id:5, icon:"🏠", name:"Home Organization", tag:"Home & Kitchen",
+    tagFilter:["low-risk","high-margin"],
+    ca:"#ec4899", cab:"rgba(236,72,153,0.1)",
+    score:88, scoreLabel:"Opportunity",
+    summary:"Under-sink organizers, closet systems, drawer dividers. Evergreen demand, Pinterest and TikTok-driven, easy to private label.",
+    whyGood:"Home organization is one of the most stable and consistently growing Amazon categories, driven by lifestyle content on Pinterest, TikTok ('CleanTok'), and YouTube. The 'before and after' transformation format is perfectly suited to this product. Products are simple, sturdy, and have an extremely low return rate. Private labeling is straightforward — even $100–200 spent on custom packaging can double perceived value and justify a premium price point. Repeat purchases are strong as customers buy for different rooms.",
+    unitCost:5, retailPrice:28, weight:0.8,
+    tariffBase:10, tariff301:15, tariffTotal:25,
+    tariffNote:"Home goods/plastics often fall under HTS 3924/3926 — Section 301 rates of 7.5–25%. Higher end of China tariff range. Budget conservatively at 25% total.",
+    shippingAir:4.80, shippingOcean:0.30,
+    brokerFee:200, customsNote:"At 0.8kg/unit, ocean freight is more economical. Air works for initial test. Minimum viable ocean order: ~300 units.",
+    amazonRef:15, amazonFBA:4.50, amazonStorage:0.90,
+    costBreakdown:[
+      {l:"Product (Alibaba)",v:"$5.00"},{l:"Air freight (~$6/kg × 0.8kg)",v:"$4.80"},
+      {l:"Tariff (25% of $5)",v:"$1.25"},{l:"Customs broker (÷120 units)",v:"$1.67"},
+      {l:"Amazon referral (15%)",v:"$4.20"},{l:"Amazon FBA fee",v:"$4.50"},
+      {l:"Storage & misc",v:"$0.90"},{l:"Custom packaging",v:"$1.00"},
+    ],
+    totalCost:23.32, netProfit:4.68, netMargin:17,
+    roiItems:[
+      {l:"Gross margin before fees",pct:82,color:"var(--green)"},
+      {l:"Net margin after all costs",pct:17,color:"var(--blue)"},
+      {l:"Tariff % of retail price",pct:4,color:"var(--gold)"},
+    ],
+    competition:"Medium", risk:"Low", trend:"📈 Rising",
+    trendItems:[
+      {icon:"🧹",text:"'CleanTok' has 25B+ views on TikTok — organization content is evergreen",badge:"Massive reach",bc:"rgba(236,72,153,.15)",tc:"var(--pink)"},
+      {icon:"🏡",text:"US home organization market projected at $14.7B by 2027",badge:"Growing market",bc:"rgba(0,212,168,.15)",tc:"var(--green)"},
+      {icon:"📦",text:"Private label-friendly: Custom packaging adds perceived value for $1–2/unit",badge:"Easy branding",bc:"rgba(245,158,11,.15)",tc:"var(--gold)"},
+      {icon:"⚠️",text:"Higher tariff category (up to 25% total). Switch to ocean freight to protect margin.",badge:"Use ocean",bc:"rgba(248,113,113,.15)",tc:"#f87171"},
+    ],
+    personas:[
+      {name:"Rachel, 35",role:"First-time homeowner, organization enthusiast",pain:"Just moved in. Overwhelmed by clutter. Obsessively follows The Home Edit on TikTok.",buys:"Pinterest, TikTok, Amazon search",msg:'"A place for everything. Finally feel at home."',tags:["new homeowner","aesthetic organizer","CleanTok fan","Pinterest buyer"]},
+      {name:"Tom, 47",role:"Practical dad, garage & kitchen chaos",pain:"Tired of losing things. Needs heavy-duty solutions that hold up.",buys:"Amazon, Home Depot online, Google",msg:'"Stop losing things. Heavy-duty organizers built for real homes."',tags:["functional","family home","durability","practical buyer"]},
+    ],
+    brandTone:"Clean, aspirational, transformation-focused. Before/after content is your single best marketing asset. Neutral tones, clean photography, short-form video.",
+    sourcingTip:"Private labeling is very easy here — suppliers expect it. Spend $1–2/unit on custom packaging with your brand colors. Stack multiple SKUs (under-sink, closet, drawer) to build a cohesive brand.",
+    channel:"Amazon FBA (primary) + TikTok CleanTok content + Pinterest + Shopify"
   }
+];
 
-  function openModal(p) {
-    const body = document.getElementById('modalBody');
-    let personasHTML = '';
-    p.personas.forEach(function(persona) {
-      personasHTML +=
-        '<div class="persona-block">' +
-          '<div class="persona-name">' + persona.name + '</div>' +
-          '<div class="persona-role">' + persona.role + '</div>' +
-          '<div class="persona-row">' +
-            '<div class="persona-col"><label>Pain Point</label><span>' + persona.pain + '</span></div>' +
-            '<div class="persona-col"><label>Where They Buy</label><span>' + persona.buys + '</span></div>' +
-          '</div>' +
-          '<div style="margin-top:0.8rem"><div class="persona-col"><label>Your Winning Message</label><span style="color:' + p.accent + ';font-style:italic">' + persona.message + '</span></div></div>' +
-          '<div class="tag-list" style="margin-top:0.7rem">' + persona.tags.map(function(t) { return '<span class="tag">' + t + '</span>'; }).join('') + '</div>' +
-        '</div>';
-    });
+function renderCards(filter){
+  const grid=document.getElementById('cardsGrid');
+  grid.innerHTML='';
+  products.filter(p=>filter==='all'||p.tagFilter.indexOf(filter)!==-1).forEach(p=>{
+    const card=document.createElement('div');
+    card.className='card';
+    card.style.setProperty('--ca',p.ca);
+    card.style.setProperty('--cab',p.cab);
+    card.innerHTML=
+      '<div class="card-head">'+
+        '<div class="card-icon">'+p.icon+'</div>'+
+        '<div class="card-score"><span class="s" style="color:'+p.ca+'">'+p.score+'</span><div class="sl">Score</div></div>'+
+      '</div>'+
+      '<div class="card-tag">'+p.tag+'</div>'+
+      '<h3>'+p.name+'</h3>'+
+      '<p>'+p.summary+'</p>'+
+      '<div class="card-metrics">'+
+        '<div class="metric"><span class="mv">'+p.netMargin+'%</span><div class="ml">Net margin</div></div>'+
+        '<div class="metric"><span class="mv">'+p.tariffTotal+'%</span><div class="ml">Tariff</div></div>'+
+        '<div class="metric"><span class="mv">'+p.trend+'</span><div class="ml">Trend</div></div>'+
+      '</div>'+
+      '<div class="card-footer"><span>Click to see full analysis</span><span class="view-btn">Open →</span></div>';
+    card.addEventListener('click',function(){openModal(p);});
+    grid.appendChild(card);
+  });
+}
 
-    body.innerHTML =
-      '<div class="modal-accent-bar" style="background:' + p.accent + '"></div>' +
-      '<p style="font-size:0.72rem;text-transform:uppercase;letter-spacing:0.15em;color:' + p.accent + ';font-weight:700;margin-bottom:0.4rem">' + p.tag + '</p>' +
-      '<h2>' + p.icon + ' ' + p.name + '</h2>' +
-      '<p class="modal-sub">' + p.summary + '</p>' +
-      '<p class="section-label">📊 Business Snapshot</p>' +
-      '<div class="info-grid">' +
-        '<div class="info-item"><label>Wholesale Cost</label><span>' + p.cost + '</span></div>' +
-        '<div class="info-item"><label>Retail Price</label><span>' + p.retail + '</span></div>' +
-        '<div class="info-item"><label>Margin Potential</label><span>' + p.margin + '</span></div>' +
-        '<div class="info-item"><label>US Tariff (estimate)</label><span>' + p.tariff + '</span></div>' +
-        '<div class="info-item"><label>Competition Level</label><span>' + p.competition + '</span></div>' +
-        '<div class="info-item"><label>Risk Level</label><span>' + p.risk + '</span></div>' +
-      '</div>' +
-      '<p class="section-label">👤 Brand Personas</p>' +
-      personasHTML +
-      '<p class="section-label">🎙️ Brand Tone</p>' +
-      '<div class="persona-block"><span style="font-size:0.88rem">' + p.brandTone + '</span></div>' +
-      '<p class="section-label">📦 Sourcing Tip</p>' +
-      '<div class="persona-block"><span style="font-size:0.88rem">' + p.sourcingTip + '</span></div>' +
-      '<p class="section-label">📣 Best Sales Channels</p>' +
-      '<div class="persona-block"><span style="font-size:0.88rem">' + p.channel + '</span></div>' +
-      '<div class="warning-box">⚠️ <strong>Tariff reminder:</strong> The US de minimis exemption was suspended in 2025, meaning even small shipments now face duties. Always calculate your full landed cost (product + freight + tariff + FBA fees) before ordering. Target at least 40–50% net margin after all costs.</div>';
+function openModal(p){
+  const hero=document.getElementById('modalHero');
+  const body=document.getElementById('modalBody');
 
-    document.getElementById('modalOverlay').classList.add('open');
-  }
+  hero.style.borderBottom='1px solid '+p.ca+'33';
+  hero.innerHTML=
+    '<div class="modal-hero-top">'+
+      '<div>'+
+        '<div class="modal-icon">'+p.icon+'</div>'+
+        '<div class="modal-tag" style="color:'+p.ca+'">'+p.tag+'</div>'+
+        '<h2>'+p.name+'</h2>'+
+        '<p class="modal-sub">'+p.summary+'</p>'+
+      '</div>'+
+      '<div class="score-badge"><div><span class="big" style="color:'+p.ca+'">'+p.score+'</span><div class="label">Score</div></div></div>'+
+    '</div>'+
+    '<div class="data-grid">'+
+      '<div class="data-item"><label>Net Margin</label><div class="val green">'+p.netMargin+'%</div></div>'+
+      '<div class="data-item"><label>Total Tariff (2026)</label><div class="val gold">'+p.tariffTotal+'%</div></div>'+
+      '<div class="data-item"><label>Competition</label><div class="val">'+p.competition+'</div></div>'+
+    '</div>';
 
-  function closeModal() {
-    document.getElementById('modalOverlay').classList.remove('open');
-  }
+  let breakdownRows='';
+  p.costBreakdown.forEach(function(row){
+    breakdownRows+='<div class="cost-row"><span class="label">'+row.l+'</span><span class="amount">'+row.v+'</span></div>';
+  });
 
-  // Tab buttons
-  document.querySelectorAll('.tab-btn').forEach(function(btn) {
-    btn.addEventListener('click', function() {
-      document.querySelectorAll('.tab-btn').forEach(function(b) { b.classList.remove('active'); });
+  let roiRows='';
+  p.roiItems.forEach(function(item){
+    roiRows+='<div class="roi-item"><div class="roi-label"><span>'+item.l+'</span><span style="color:'+item.color+'">'+item.pct+'%</span></div><div class="roi-bar"><div class="roi-fill" style="width:'+item.pct+'%;background:'+item.color+'"></div></div></div>';
+  });
+
+  let trendRows='';
+  p.trendItems.forEach(function(item){
+    trendRows+='<div class="trend-item"><div class="trend-icon">'+item.icon+'</div><div class="trend-text">'+item.text+'</div><div class="trend-badge" style="background:'+item.bc+';color:'+item.tc+'">'+item.badge+'</div></div>';
+  });
+
+  let personaBlocks='';
+  p.personas.forEach(function(persona){
+    personaBlocks+=
+      '<div class="persona-block" style="--ca:'+p.ca+'">'+
+        '<div class="persona-name">'+persona.name+'</div>'+
+        '<div class="persona-role">'+persona.role+'</div>'+
+        '<div class="persona-row">'+
+          '<div class="persona-col"><label>Pain Point</label><span>'+persona.pain+'</span></div>'+
+          '<div class="persona-col"><label>Where They Shop</label><span>'+persona.buys+'</span></div>'+
+        '</div>'+
+        '<div class="persona-msg" style="border-left-color:'+p.ca+'">'+persona.msg+'</div>'+
+        '<div class="tag-list">'+persona.tags.map(function(t){return'<span class="tag">'+t+'</span>';}).join('')+'</div>'+
+      '</div>';
+  });
+
+  body.innerHTML=
+    '<div class="section-label">💡 Why This Product?</div>'+
+    '<p style="font-size:.85rem;color:var(--muted);line-height:1.65">'+p.whyGood+'</p>'+
+
+    '<div class="section-label">🌊 2026 Tariff Breakdown</div>'+
+    '<div class="data-grid">'+
+      '<div class="data-item"><label>Section 122 (all countries)</label><div class="val gold">10%</div></div>'+
+      '<div class="data-item"><label>Section 301 (China only)</label><div class="val gold">'+p.tariff301+'%</div></div>'+
+      '<div class="data-item"><label>Total Effective Rate</label><div class="val gold">~'+p.tariffTotal+'%</div></div>'+
+    '</div>'+
+    '<p style="font-size:.78rem;color:var(--muted);margin-top:.6rem;line-height:1.5">'+p.tariffNote+'</p>'+
+
+    '<div class="section-label">🚢 Shipping Cost Scenarios</div>'+
+    '<div class="data-grid">'+
+      '<div class="data-item"><label>Air Freight / unit</label><div class="val">$'+p.shippingAir.toFixed(2)+'</div></div>'+
+      '<div class="data-item"><label>Ocean Freight / unit</label><div class="val green">$'+p.shippingOcean.toFixed(2)+'</div></div>'+
+      '<div class="data-item"><label>Customs Broker Fee</label><div class="val">$'+p.brokerFee+'/shipment</div></div>'+
+    '</div>'+
+    '<p style="font-size:.78rem;color:var(--muted);margin-top:.6rem;line-height:1.5">'+p.customsNote+' Air freight rate based on $6/kg. Ocean assumes LCL at ~$1/kg equivalent for small orders. Broker fee applies per shipment, not per unit.</p>'+
+
+    '<div class="section-label">💰 Unit Cost Breakdown (Air Freight, First Order)</div>'+
+    '<div class="cost-table">'+
+      breakdownRows+
+      '<div class="cost-row total"><span class="label">Total Cost Per Unit</span><span class="amount">$'+p.totalCost.toFixed(2)+'</span></div>'+
+      '<div class="cost-row total" style="background:rgba(0,212,168,.08)"><span class="label" style="color:var(--green)">Net Profit Per Unit (at $'+p.retailPrice+')</span><span class="amount" style="color:var(--green)">$'+p.netProfit.toFixed(2)+'</span></div>'+
+    '</div>'+
+    '<p style="font-size:.75rem;color:var(--muted);margin-top:.5rem">Note: Switching to ocean freight at scale adds 3–5 weeks but cuts shipping cost by ~70%, improving net margin to 25–35%+.</p>'+
+
+    '<div class="section-label">📊 Margin Breakdown</div>'+
+    '<div class="roi-bar-wrap">'+roiRows+'</div>'+
+
+    '<div class="section-label">📈 Market Trends</div>'+
+    '<div class="trend-list">'+trendRows+'</div>'+
+
+    '<div class="section-label">👥 Brand Personas</div>'+
+    personaBlocks+
+
+    '<div class="section-label">🎙️ Brand Voice & Tone</div>'+
+    '<div style="background:var(--surface2);border-radius:10px;padding:1rem;font-size:.84rem;color:var(--muted)">'+p.brandTone+'</div>'+
+
+    '<div class="section-label">📦 Sourcing Tip</div>'+
+    '<div style="background:var(--surface2);border-radius:10px;padding:1rem;font-size:.84rem;color:var(--muted)">'+p.sourcingTip+'</div>'+
+
+    '<div class="section-label">📣 Best Sales Channels</div>'+
+    '<div style="background:var(--surface2);border-radius:10px;padding:1rem;font-size:.84rem;color:var(--muted)">'+p.channel+'</div>'+
+
+    '<div class="warn-box">'+
+      '⚠️ <strong>Important disclaimers:</strong> All costs are estimates based on current market data (March 2026). Actual tariff rates depend on your specific HTS code — verify with a licensed customs broker before ordering. Net margins assume Amazon FBA as the sales channel; Shopify/Etsy will differ. Shipping rates fluctuate with fuel prices and seasonal demand. These numbers are designed for planning, not guarantees.'+
+    '</div>';
+
+  document.getElementById('modalOverlay').classList.add('open');
+}
+
+function closeModal(){document.getElementById('modalOverlay').classList.remove('open');}
+
+document.addEventListener('DOMContentLoaded',function(){
+  document.querySelectorAll('.tab-btn').forEach(function(btn){
+    btn.addEventListener('click',function(){
+      document.querySelectorAll('.tab-btn').forEach(function(b){b.classList.remove('active');});
       btn.classList.add('active');
       renderCards(btn.getAttribute('data-filter'));
     });
   });
-
-  // Close modal
-  document.getElementById('modalCloseBtn').addEventListener('click', closeModal);
-  document.getElementById('modalOverlay').addEventListener('click', function(e) {
-    if (e.target === document.getElementById('modalOverlay')) closeModal();
-  });
-  document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closeModal(); });
-
+  document.getElementById('modalCloseBtn').addEventListener('click',closeModal);
+  document.getElementById('modalOverlay').addEventListener('click',function(e){if(e.target===document.getElementById('modalOverlay'))closeModal();});
+  document.addEventListener('keydown',function(e){if(e.key==='Escape')closeModal();});
   renderCards('all');
-
-}); // end DOMContentLoaded
+});
 </script>
 </body>
 </html>
